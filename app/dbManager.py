@@ -5,7 +5,7 @@ class DbManager:
 
     def __init__(self):
         
-        self.server = 'db4free.net'
+        self.server = '85.10.205.173:3306'
         self.database = 'aboutmoving'
         self.username = 'lauralpz' 
         self.password = "Linda2001"
@@ -13,9 +13,10 @@ class DbManager:
     def read(self, query):
         #crea una conexion a la base de datos definida en el __init__ que ejecute una query que lea datetime como string
 
-        cnxn = pymssql.connect(host=self.server, user=self.username, password=self.password, database=self.database, charset="CP936")        
+        cnxn = pymssql.connect(host=self.server, user=self.username, password=self.password, database=self.database)        
         cursor = cnxn.cursor()
-
+        # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://lindalpz:Linda2001@db4free.net/tienda_bdd'
+        
         try:
             cursor.execute(query)
             rows = cursor.fetchall()

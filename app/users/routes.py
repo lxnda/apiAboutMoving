@@ -1,17 +1,17 @@
 from app import app
-from app.clientes.clientesData import ClientesData
+from app.users.userData import UsersData
 from flask import request
 from flask.wrappers import Response
 import requests
 import json
 
-dm = ClientesData()
+dm = UsersData()
 
-@app.route("/getUsersInformation", methods = ['POST'])
-def getUsersInformation():
+@app.route("/addUser", methods = ['POST'])
+def addUser():
 
     inputJson = request.json
-    result = dm.getUsersInformation(inputJson)
+    result = dm.addUser(inputJson)
 
     message = result[0]
     returnCode = result[1]
