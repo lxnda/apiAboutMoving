@@ -5,10 +5,10 @@ class DbManager:
 
     def __init__(self):
         
-        self.server = '85.10.205.173:3306'
+        self.server = 'sqlserverlinda.database.windows.net'
         self.database = 'aboutmoving'
-        self.username = 'lauralpz' 
-        self.password = "Linda2001"
+        self.username = 'adminlinda' 
+        self.password = "Azureserver07"
 
     def read(self, query):
         #crea una conexion a la base de datos definida en el __init__ que ejecute una query que lea datetime como string
