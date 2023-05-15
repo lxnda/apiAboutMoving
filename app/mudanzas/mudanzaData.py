@@ -3,7 +3,7 @@ import json
 from app.dbManager import DbManager
 from app.format import Format
 
-class UsersData():
+class MudanzaData():
     format = Format()
 
     # ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -11,17 +11,21 @@ class UsersData():
         super().__init__() 
         self.db = DbManager()
         
-    def addUser(self, inputjson):
+    def addMudanza(self, inputjson):
         try:
-            query = """INSERT INTO usuarios ( nombre , email, contrasena"""
+            query = """INSERT INTO mudanzas ( fecha , direccion_origen, direccion_destino,
+                       descripcion, tipo, id_cliente """
             query = (
                 query
                 + f"""
                                 )
                                 VALUES (
-                                    '{inputjson["nombre"]}',
-                                    '{inputjson["email"]}',
-                                    '{inputjson["contrasena"]}'
+                                    '{inputjson["fecha"]}',
+                                    '{inputjson["direccion_origen"]}',
+                                    '{inputjson["direccion_destino"]}',
+                                    '{inputjson["descripcion"]}',
+                                    '{inputjson["tipo"]}',
+                                    {inputjson["id_cliente"]}
                                     )"""
             )
             self.db.execute(query)

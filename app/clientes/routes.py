@@ -7,11 +7,23 @@ import json
 
 dm = ClientesData()
 
-@app.route("/getUsersInformation", methods = ['POST'])
-def getUsersInformation():
+
+@app.route("/addClientes", methods = ['POST'])
+def addClientes():
 
     inputJson = request.json
-    result = dm.getUsersInformation(inputJson)
+    result = dm.addClientes(inputJson)
+
+    message = result[0]
+    returnCode = result[1]
+
+    return Response(json.dumps(message), returnCode)
+
+@app.route("/getClientes", methods = ['POST'])
+def getClientes():
+
+    inputJson = request.json
+    result = dm.getClientes(inputJson)
 
     message = result[0]
     returnCode = result[1]
