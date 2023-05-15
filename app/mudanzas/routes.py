@@ -17,3 +17,14 @@ def addMudanza():
     returnCode = result[1]
 
     return Response(json.dumps(message), returnCode)
+
+@app.route("/getMudanza", methods = ['POST'])
+def getMudanza():
+
+    inputJson = request.json
+    result = dm.getMudanza(inputJson)
+
+    message = result[0]
+    returnCode = result[1]
+
+    return Response(json.dumps(message), returnCode)

@@ -17,3 +17,14 @@ def addEmpresa():
     returnCode = result[1]
 
     return Response(json.dumps(message), returnCode)
+
+@app.route("/getEmpresa", methods = ['POST'])
+def getEmpresa():
+
+    inputJson = request.json
+    result = dm.getEmpresa(inputJson)
+
+    message = result[0]
+    returnCode = result[1]
+
+    return Response(json.dumps(message), returnCode)

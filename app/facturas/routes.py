@@ -17,3 +17,14 @@ def addInvoice():
     returnCode = result[1]
 
     return Response(json.dumps(message), returnCode)
+
+@app.route("/getInvoice", methods = ['POST'])
+def getInvoice():
+
+    inputJson = request.json
+    result = dm.getInvoice(inputJson)
+
+    message = result[0]
+    returnCode = result[1]
+
+    return Response(json.dumps(message), returnCode)

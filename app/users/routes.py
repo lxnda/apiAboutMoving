@@ -17,3 +17,14 @@ def addUser():
     returnCode = result[1]
 
     return Response(json.dumps(message), returnCode)
+
+@app.route("/getUser", methods = ['POST'])
+def getUser():
+
+    inputJson = request.json
+    result = dm.getUser(inputJson)
+
+    message = result[0]
+    returnCode = result[1]
+
+    return Response(json.dumps(message), returnCode)
