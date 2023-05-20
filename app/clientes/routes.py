@@ -19,7 +19,7 @@ def addClientes():
 
     return Response(json.dumps(message), returnCode)
 
-@app.route("/getClientes", methods = ['POST'])
+@app.route("/getClientes", methods = ['GET'])
 def getClientes():
 
     inputJson = request.json
@@ -29,3 +29,4 @@ def getClientes():
     returnCode = result[1]
 
     return Response(json.dumps(message), returnCode)
+

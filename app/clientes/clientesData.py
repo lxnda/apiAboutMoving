@@ -32,13 +32,13 @@ class ClientesData():
             print(e)
             return ({"message": "Insert failed, check log"}, 406)
         else:
-            return ({"message": f"Added Empresa"}, 200)
+            return ({"message": f"Added Cliente"}, 200)
 
 
     def getClientes(self, inputjson):
         try:
-            query = f"""SELECT id, nombre, telefono, email, direccion, id_empresa
-                        FROM clientes 
+            query = f"""SELECT  nombre, telefono, email, direccion
+                        FROM [clientes] 
                         WHERE id_empresa = {inputjson["id_empresa"]} """
 
             data = self.db.read(query)
@@ -50,4 +50,4 @@ class ClientesData():
             print(e)
             return ({"message": "failed, check log"}, 406)
         else:
-            return ({"data": output_json}, 200)
+            return (output_json, 200)
