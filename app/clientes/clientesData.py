@@ -35,11 +35,11 @@ class ClientesData():
             return ({"message": f"Added Cliente"}, 200)
 
 
-    def getClientes(self, inputjson):
+    def getClientes(self, id_empresa):
         try:
             query = f"""SELECT  nombre, telefono, email, direccion
                         FROM [clientes] 
-                        WHERE id_empresa = {inputjson["id_empresa"]} """
+                        WHERE id_empresa = {id_empresa} """
 
             data = self.db.read(query)
             if len(data) == 0:

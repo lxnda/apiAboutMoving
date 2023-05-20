@@ -21,9 +21,8 @@ def addClientes():
 
 @app.route("/getClientes", methods = ['GET'])
 def getClientes():
-
-    inputJson = request.json
-    result = dm.getClientes(inputJson)
+    id_empresa = request.args.get('id_empresa')
+    result = dm.getClientes(id_empresa)
 
     message = result[0]
     returnCode = result[1]
