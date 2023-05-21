@@ -37,7 +37,7 @@ class ClientesData():
 
     def getClientes(self, id_empresa):
         try:
-            query = f"""SELECT  nombre, telefono, email, direccion
+            query = f"""SELECT  id,nombre, telefono, email, direccion
                         FROM [clientes] 
                         WHERE id_empresa = {id_empresa} """
 
@@ -51,3 +51,42 @@ class ClientesData():
             return ({"message": "failed, check log"}, 406)
         else:
             return (output_json, 200)
+        
+    def updateClientes(self, inputjson):
+        try:
+            query = """UPDATE clientes
+                    SET nombre = '{}', direccion = '{}', telefono = '{}', email = '{}'
+                    WHERE id_empresa = {} AND id = '{}'""".format(
+                        inputjson["nombre"],
+                        inputjson["direccion"],
+                        inputjson["telefono"],
+                        inputjson["email"],
+                        inputjson["id_empresa"],
+                        inputjson["id"]
+                    )
+            self.db.execute(query)
+            return ({"message": "Cliente updated successfully"}, 200)
+        except Exception as e:
+            print(e)
+            return ({"message": "Failed to update Cliente"}, 406)
+    
+    def deleteClientes(self, inputjson):
+        try:
+            # Eliminar registros relacionados en la tabla "mudanzas"
+            query_mudanzas = """DELETE FROM mudanzas
+                                WHERE id_cliente = '{}'""".format(inputjson["id"])
+            self.db.execute(query_mudanzas)
+
+            # Eliminar el cliente de la tabla "clientes"
+            query_clientes = """DELETE FROM clientes
+                                WHERE id_empresa = {} AND id = '{}'""".format(
+                                    inputjson["id_empresa"],
+                                    inputjson["id"]
+                                )
+            self.db.execute(query_clientes)
+
+            return ({"message": "Cliente deleted successfully"}, 200)
+        except Exception as e:
+            print(e)
+            return ({"message": "Failed to delete Cliente"}, 406)
+        

@@ -29,3 +29,23 @@ def getClientes():
 
     return Response(json.dumps(message), returnCode)
 
+@app.route("/updateClientes", methods = ['PUT'])
+def updateClientes():
+    inputJson = request.json
+    result = dm.updateClientes(inputJson)
+
+    message = result[0]
+    returnCode = result[1]
+
+    return Response(json.dumps(message), returnCode)
+
+@app.route("/deleteClientes", methods = ['DELETE'])
+def deleteClientes():
+    inputJson = request.json
+    result = dm.deleteClientes(inputJson)
+
+    message = result[0]
+    returnCode = result[1]
+
+    return Response(json.dumps(message), returnCode)
+
