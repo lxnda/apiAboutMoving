@@ -28,3 +28,14 @@ def getMudanza():
     returnCode = result[1]
 
     return Response(json.dumps(message), returnCode)
+
+@app.route("/getMudanzas", methods = ['POST'])
+def getMudanzas():
+
+    inputJson = request.json
+    result = dm.getMudanzas(inputJson)
+
+    message = result[0]
+    returnCode = result[1]
+
+    return Response(json.dumps(message), returnCode)
