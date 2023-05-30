@@ -11,7 +11,7 @@ class EmpresaData():
         super().__init__() 
         self.db = DbManager()
         
-    def addEmpresa(self, inputjson):
+    def addEmpresa(self, idUser ,inputjson):
         try:
             query = """INSERT INTO empresa ( nombre , direccion, telefono, email, id_usuario"""
             query = (
@@ -23,7 +23,7 @@ class EmpresaData():
                                     '{inputjson["direccion"]}',
                                     {inputjson["telefono"]},
                                      '{inputjson["email"]}',
-                                    {inputjson["id_usuario"]}
+                                    {idUser}
                                     )"""
             )
             self.db.execute(query)

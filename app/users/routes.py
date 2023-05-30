@@ -28,3 +28,15 @@ def getUser():
     returnCode = result[1]
 
     return Response(json.dumps(message), returnCode)
+
+@app.route("/verificarUser", methods = ['POST'])
+def verificarUser():
+
+    inputJson = request.json
+    result = dm.verificarUser(inputJson)
+
+    message = result[0]
+    returnCode = result[1]
+
+    return Response(json.dumps(message), returnCode)
+
