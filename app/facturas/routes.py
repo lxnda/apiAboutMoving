@@ -18,7 +18,7 @@ def addInvoice():
 
     return Response(json.dumps(message), returnCode)
 
-@app.route("/getInvoice", methods = ['POST'])
+@app.route("/getInvoice", methods = ['GET'])
 def getInvoice():
 
     inputJson = request.json
