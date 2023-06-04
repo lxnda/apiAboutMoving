@@ -78,4 +78,4 @@ class UsersData():
             print(e)
             return ({"message": "failed, check log"}, 406)
         else:
-            return ({"data": response}, 200)
+            return (response, 200)
