@@ -13,7 +13,10 @@ class InvoiceData():
         
     def addInvoice(self, inputjson):
         try:
-            query = """INSERT INTO facturas ( fecha , total, id_mudanza"""
+            fecha = str(inputjson["fecha"] )
+            fecha_sin_guiones = fecha.replace('-', '')
+            idconcat= "F" + str(inputjson["idempresa"]) + fecha_sin_guiones
+            query = """INSERT INTO facturas ( fecha , total, idempresa, idfactura, nombrecliente"""
             query = (
                 query
                 + f"""
@@ -21,7 +24,9 @@ class InvoiceData():
                                 VALUES (
                                     '{inputjson["fecha"]}',
                                     {inputjson["total"]},
-                                    {inputjson["id_mudanza"]}
+                                    {inputjson["idempresa"]},
+                                    '{idconcat}',
+                                    '{inputjson["nombrecliente"]}'
                                     )"""
             )
             self.db.execute(query)
@@ -30,12 +35,13 @@ class InvoiceData():
             return ({"message": "Insert failed, check log"}, 406)
         else:
             return ({"message": f"Added Invoice"}, 200)
-        
-    def getInvoice(self, inputjson):
+
+
+    def getInvoice(self, id_empresa):
         try:
-            query = f"""SELECT id, fecha, total
+            query = f"""SELECT id, fecha, total, idfactura, nombrecliente
                         FROM facturas 
-                        WHERE id_mudanza = {inputjson["id_mudanza"]} """
+                        WHERE idempresa = {id_empresa} """
 
             data = self.db.read(query)
             if len(data) == 0:
@@ -46,4 +52,18 @@ class InvoiceData():
             print(e)
             return ({"message": "failed, check log"}, 406)
         else:
-            return ({"data": output_json}, 200)
+            return (output_json, 200)
+        
+
+    def deleteInvoice(self, inputjson):
+        try:
+             # Eliminar registros relacionados en la tabla "mudanzas"
+            query_invoice = """DELETE FROM facturas
+                                WHERE id = '{}'""".format(inputjson["id"])
+            self.db.execute(query_invoice)
+
+
+            return ({"message": "Factura deleted successfully"}, 200)
+        except Exception as e:
+            print(e)
+            return ({"message": "Failed to delete Factura"}, 406)
