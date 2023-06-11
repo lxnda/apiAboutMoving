@@ -110,3 +110,20 @@ class MudanzaData():
             return ({"message": "Failed to delete Mudanza"}, 406)
         
 
+    def getEvents(self, id_empresa):
+        try:
+            query = f"""SELECT  m.fecha , c.nombre
+                        FROM [dbo].[mudanzas] as m 
+                        JOIN [dbo].[clientes] as c ON c.id = m.id_cliente
+                        WHERE  c.id_empresa= {id_empresa} """
+
+            data = self.db.read(query)
+            if len(data) == 0:
+                return ({"message": "No data found"}, 406)
+            else:
+                output_json = self.format.formatListToJsonList(data)
+        except Exception as e:
+            print(e)
+            return ({"message": "failed, check log"}, 406)
+        else:
+            return (output_json, 200)   

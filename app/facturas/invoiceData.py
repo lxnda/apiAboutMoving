@@ -16,7 +16,7 @@ class InvoiceData():
             fecha = str(inputjson["fecha"] )
             fecha_sin_guiones = fecha.replace('-', '')
             idconcat= "F" + str(inputjson["idempresa"]) + fecha_sin_guiones
-            query = """INSERT INTO facturas ( fecha , total, idempresa, idfactura, nombrecliente"""
+            query = """INSERT INTO facturas ( fecha , total, idempresa, idfactura, nombrecliente, descripcion"""
             query = (
                 query
                 + f"""
@@ -26,7 +26,8 @@ class InvoiceData():
                                     {inputjson["total"]},
                                     {inputjson["idempresa"]},
                                     '{idconcat}',
-                                    '{inputjson["nombrecliente"]}'
+                                    '{inputjson["nombrecliente"]}',
+                                    '{inputjson["descripcion"]}'
                                     )"""
             )
             self.db.execute(query)
@@ -39,7 +40,7 @@ class InvoiceData():
 
     def getInvoice(self, id_empresa):
         try:
-            query = f"""SELECT id, fecha, total, idfactura, nombrecliente
+            query = f"""SELECT id, fecha, total, idfactura, nombrecliente,descripcion
                         FROM facturas 
                         WHERE idempresa = {id_empresa} """
 

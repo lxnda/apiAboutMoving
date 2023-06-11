@@ -33,19 +33,20 @@ class EmpresaData():
         else:
             return ({"message": f"Added Empresa"}, 200)
 
-    def getEmpresa(self, inputjson):
+    def getEmpresa(self, id_empresa):
         try:
             query = f"""SELECT id, nombre, direccion, telefono, email, id_usuario
                         FROM empresa 
-                        WHERE id_usuario = {inputjson["id_usuario"]} """
+                        WHERE id = {id_empresa} """
 
             data = self.db.read(query)
-            if len(data) == 0:
+            if len(data) == 1:
                 return ({"message": "No data found"}, 406)
             else:
+                
                 output_json = self.format.formatListToJsonList(data)
         except Exception as e:
             print(e)
             return ({"message": "failed, check log"}, 406)
         else:
-            return ({"data": output_json}, 200)
+            return output_json

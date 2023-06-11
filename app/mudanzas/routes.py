@@ -60,3 +60,13 @@ def deleteMudanza():
     returnCode = result[1]
 
     return Response(json.dumps(message), returnCode)
+
+@app.route("/getEvents", methods = ['GET'])
+def getEvents():
+    id_empresa = request.args.get('id_empresa')
+    result = dm.getEvents(id_empresa)
+
+    message = result[0]
+    returnCode = result[1]
+
+    return Response(json.dumps(message), returnCode)
